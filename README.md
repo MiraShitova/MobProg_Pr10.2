@@ -1,17 +1,21 @@
-# pr10_2
+# Order System (SQLite Transactions)
+Цей проект демонструє реалізацію надійної системи обробки замовлень за допомогою Flutter та SQLite. Основна мета проекту — забезпечення цілісності даних (ACID) через використання транзакцій, індексів та каскадних операцій.
 
-A new Flutter project.
+## Основні можливості
+- Транзакційна обробка: Атомарне створення замовлень: перевірка залишків, підрахунок суми та списання товару виконуються як єдина операція. У разі помилки відбувається автоматичний Rollback.
+- Складна схема БД: Використання трьох пов'язаних таблиць із FOREIGN KEY та ON DELETE CASCADE.
+- Оптимізація: Налаштовані індекси для швидкого пошуку замовлень та товарів.
+- Batch-операції: Ефективне оновлення статусів та додавання позицій через пакетні запити.
+- Аналітичні звіти: SQL-запити для розрахунку доходу, статистики статусів та виявлення топ-товарів за кількістю продажів.
 
-## Getting Started
+## Схема бази даних
+Система базується на трьох основних сутностях:
 
-This project is a starting point for a Flutter application.
+- Products: зберігає інформацію про товари, ціни та актуальні залишки на складі (stock).
+- Orders: заголовок замовлення (користувач, загальна сума, статус, дата).
+-  OrderItems: деталізація замовлення (зв'язок "багато-до-багатьох" між замовленнями та продуктами).
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Технічний стек
+- Мова: Dart / Flutter
+- База даних: SQLite (sqflite package)
+- Паттерни: Singleton (для Database Helper), Service Layer.
